@@ -1,0 +1,6 @@
+grep '172.30.1' | perl -pe 's{("[^"]*"|[^",]+)|,}{$1 // " "}ge'| awk 'BEGIN { FS=" " }  {if (($1+$8) >= 1364803829) print $4, $5}' | sed 's/'172.30.1.'[0-9][0-9][0-9]//g' |\
+while read line
+do
+echo $(geoiplookup $line)
+done | sed 's/[^>]*://g' | sort | uniq -c | sort -n -r
+

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# firstly we load all the directories
+directories=`find . -type d` 
+
+for d in $directories
+do
+	# we check if it is a directory, to not compress directories already compressed their parents
+	if [ -d "$d" ]
+	then
+		accessedFiles=`find $d -type f -atime -30`
+		# we check if there are accessed files
+		if [ -z "$accessedFiles" ] 
+			then
+			tar -zcvf $d.tgz $d
+			# remove the directory after compression
+			rm -r $d
+		fi
+	fi
+done	
