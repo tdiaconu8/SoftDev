@@ -1,5 +1,0 @@
-def sum(n):
-	S = 0
-	for i in range(n):
-		S += i
-	return S	
